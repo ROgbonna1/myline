@@ -1,4 +1,22 @@
-<p>Trip Distance: <%=@distance%></p>
-<p>Trip Time: <%=@duration%></p>
-<br>
+<h3>Your Location: <%=params[:location1]%></h3>
+<h3>Your Friend's Location: <%=params[:location2]%></h3>
+
+<p>Yelp's highest rated restaurants, ranked by equidistance:</p>
+<ol>
+  <% @restaurants.each do |restaurant|%>
+    <li><a href="<%=restaurant[:url]%>"><%= restaurant[:name] %></a></li>
+    <ul>
+      <li>
+        <a href="<%=google_directions(@location1, coordinates(restaurant).join(","))%>">
+          <p>Directions from <%=@location1%></p>
+        </a>
+      </li>
+      <li>
+        <a href="<%=google_directions(@location2, coordinates(restaurant).join(","))%>">
+          <p>Directions from <%=@location2%></p>
+        </a>
+      </li>
+    </ul>
+  <% end %>
+</ol>
 <a href='/'>Return Home</a>
